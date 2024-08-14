@@ -23,8 +23,7 @@ export class UserController {
 
   @Get('byToken')
   getUserByToken(@Headers() headers) {
-    const user = this.userSevice.getUserByToken(headers.token);
-    return user;
+    return this.userSevice.getUserByToken(headers.token);
   }
   @UseGuards(AuthGuard)
   @Delete()
