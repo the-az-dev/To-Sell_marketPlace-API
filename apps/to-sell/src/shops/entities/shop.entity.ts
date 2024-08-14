@@ -1,10 +1,10 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinColumn, ManyToOne,
   OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { User } from '../../user/entities/user.entity';
 
 @Entity({ name: 'shops' })
@@ -13,7 +13,11 @@ export class Shop {
   id: number;
   @Column({ length: 50 })
   name: string;
-  @OneToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: 'ownerId' })
+  @ManyToOne(() => User, (user) => user.id, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'userId' })
   ownerId: number;
 }
